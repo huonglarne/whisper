@@ -1,3 +1,14 @@
+# Run with Moreh
+
+    conda create -y -n whisper python==3.8
+
+    update-moreh --force
+
+    pip install -U openai-whisper
+
+    whisper tests/jfk.flac --model tiny
+
+
 # Whisper
 
 [[Blog]](https://openai.com/blog/whisper)
