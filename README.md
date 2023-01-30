@@ -9,14 +9,6 @@
     whisper tests/jfk.flac --model tiny --fp16 False
 
 
-Error when run this
-
-    whisper tests/jfk.flac --model tiny --fp16 True
-
-
-Debug: Use dummy.py
-
-
 # Whisper
 
 [[Blog]](https://openai.com/blog/whisper)
