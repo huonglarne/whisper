@@ -6,7 +6,15 @@
 
     pip install -U openai-whisper
 
-    whisper tests/jfk.flac --model tiny
+    whisper tests/jfk.flac --model tiny --fp16 False
+
+
+Error when run this
+
+    whisper tests/jfk.flac --model tiny --fp16 True
+
+
+Debug: Use dummy.py
 
 
 # Whisper
