@@ -1,0 +1,65 @@
+/home/ubuntu/.conda/envs/pytorch/bin/python /home/ubuntu/.conda/envs/pytorch/bin/pip install torch==1.7.1+cu110.moreh23.1.1
+/home/ubuntu/.conda/envs/whisper/bin/python
+python
+
+#################################################################################################
+# WARNING: Please refrain from connecting to the VM while the training process is still running.#
+#################################################################################################
+
+(pytorch) ubuntu@moreh-test-vm04:/NAS/huong/whisper$ conda activate whisper
+c(whisper) ubuntu@moreh-test-vm04:/NAS/huong/whisper$ whisper tests/jfk.flac --model tiny --fp16 False
+[2023-01-30 14:21:10.433] [info] Requesting resources for KT AI Accelerator from the server...
+[2023-01-30 14:21:11.452] [info] Initializing the worker daemon for KT AI Accelerator
+[2023-01-30 14:21:12.541] [info] [1/1] Connecting to resources on the server (192.168.110.2:24161)...
+[2023-01-30 14:21:12.555] [info] Establishing links to the resources...
+[2023-01-30 14:21:12.613] [info] KT AI Accelerator is ready to use.
+Detecting language using up to the first 30 seconds. Use `--language` to specify the language
+Detected language: English
+[00:00.000 --> 00:11.000]  And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.
+(whisper) ubuntu@moreh-test-vm04:/NAS/huong/whisper$ whisper tests/jfk.flac --model tiny --fp16 True
+[2023-01-30 14:21:34.713] [info] Requesting resources for KT AI Accelerator from the server...
+[2023-01-30 14:21:35.729] [info] Initializing the worker daemon for KT AI Accelerator
+[2023-01-30 14:21:36.804] [info] [1/1] Connecting to resources on the server (192.168.110.2:24162)...
+[2023-01-30 14:21:36.818] [info] Establishing links to the resources...
+[2023-01-30 14:21:36.872] [info] KT AI Accelerator is ready to use.
+Detecting language using up to the first 30 seconds. Use `--language` to specify the language
+Traceback (most recent call last):
+  File "/home/ubuntu/.conda/envs/whisper/bin/whisper", line 8, in <module>
+    sys.exit(cli())
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/whisper/transcribe.py", line 311, in cli
+    result = transcribe(model, audio_path, temperature=temperature, **args)
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/whisper/transcribe.py", line 93, in transcribe
+    _, probs = model.detect_language(segment)
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/torch/autograd/grad_mode.py", line 26, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/whisper/decoding.py", line 43, in detect_language
+    mel = model.encoder(mel)
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/whisper/model.py", line 149, in forward
+    x = F.gelu(self.conv1(x))
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 258, in forward
+    return F.conv1d(input, self.weight, self.bias, self.stride,
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/moreh/driver/pytorch/torch/wrapper/moreh_wrapper.py", line 113, in wrapper
+    raise instance
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/moreh/driver/pytorch/torch/wrapper/moreh_wrapper.py", line 54, in wrapper
+    return moreh_function(
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/moreh/driver/pytorch/torch/nn/functional.py", line 616, in conv1d
+    return frontend.register_operation([input, weight, bias], op)[0]
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/moreh/driver/pytorch/torch/common/frontend.py", line 629, in register_operation
+    return _register_operation_internal(input_tensors, [None] * num_outputs, op)
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/moreh/driver/pytorch/torch/common/frontend.py", line 554, in _register_operation_internal
+    output_tickets = moreh_f.create_operation(op_name, op.SerializeToString(),
+  File "/home/ubuntu/.conda/envs/whisper/lib/python3.8/site-packages/moreh/driver/pytorch/moreh_module/moreh_f.py", line 830, in create_operation
+    return _moreh_f.create_operation(operator_str, proto_str_ptr, input_tickets, inplace_output_tickets, grad_enabled)
+RuntimeError: IR_COND_CHECK_ERROR: input->datatype() == weight->datatype() failed.
+(whisper) ubuntu@moreh-test-vm04:/NAS/huong/whisper$ tmux capture-pane -pS 300 > log
+-bash: log: Is a directory
+(whisper) ubuntu@moreh-test-vm04:/NAS/huong/whisper$ tmux capture-pane -pS 300 > log/log
+(whisper) ubuntu@moreh-test-vm04:/NAS/huong/whisper$ tmux capture-pane -pS 300 > last-300-lines.out
+(whisper) ubuntu@moreh-test-vm04:/NAS/huong/whisper$  tmux capture-pane -pS -300 > ./last-300-lines.out
+(whisper) ubuntu@moreh-test-vm04:/NAS/huong/whisper$ tmux capture-pane -pS 500 > last-300-lines.out
+(whisper) ubuntu@moreh-test-vm04:/NAS/huong/whisper$ tmux capture-pane -pS -500 > last-300-lines.out
+
