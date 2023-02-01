@@ -1,5 +1,9 @@
 # Run with Moreh
 
+Whisper provides no training code.
+
+Run inference:
+
     conda create -y -n whisper python==3.8
 
     update-moreh --force
@@ -8,14 +12,9 @@
 
     whisper tests/jfk.flac --model tiny --fp16 False
 
+Recreate error when fp16 is True: 
 
-Error when run this
-
-    whisper tests/jfk.flac --model tiny --fp16 True
-
-
-Debug: Use dummy.py
-
+    python dummy.py
 
 # Whisper
 
